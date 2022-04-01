@@ -1,11 +1,11 @@
-from . import db
+from website import *
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 
 class Recipe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(10000))
+    recipe_name = db.Column(db.String(10000))
     image_url = db.Column(db.String(1000))
     ingredients = db.Column(db.String(1000))
     instructions = db.Column(db.String(1000))
