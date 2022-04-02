@@ -1,37 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<h1>Welcome to your recipe page!</h1>
-
-
-
-
-<form method = 'POST'>
-    <h2>Enter a new recipe</h2>
-    <label for="recipe_name">Recipe Name:</label>
-    <input type="text" id="recipe_name" name="recipe_name"><br />
-    <label for="ingredients">Ingredients:</label>
-    <textarea name="ingredients" id="ingredients"></textarea><br />
-    <label for="instructions">Instructions:</label>
-    <textarea name="instructions" id="instructions"></textarea><br />
-    <label for="servings">Serves:</label>
-    <input type="text" id="servings" name="servings"><br />
-    <label for="review">Recipe Name:</label>
-    <input type="text" id="review" name="review"><br />
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star checked"></span>
-    <span class="fa fa-star"></span>
-    <span class="fa fa-star"></span>
-    <p>Difficulty:</p>
-    <input type="radio" id="easy" name="difficulty" value="easy"><br />
-    <label for="easy">Easy</label>
-    <input type="radio" id="moderate" name="difficulty" value="moderate"><br />
-    <label for="moderate">Moderate</label>
-    <input type="radio" id="hard" name="difficulty" value="hard"><br />
-    <label for="hard">Hard</label>
-    <button type="submit" id="submit_recipe">Submit Recipe</button>
-</form>
-
+        <div id="logo">
+          <img src="{{ url_for('static', filename='images/logo.png') }}"/>
+        </div>
+        <div>
+            <h2>Welcome to Egg-2-Z - we have recipes for everyone!</h2>
+            <h3>Want to join our community? Click the sign up page and start sharing recipes!</h3>
+            <h3>Once you create your account, you can save and add your own recipes to share.</h3>
+        </div>
 
 {% endblock %}
