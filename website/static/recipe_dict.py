@@ -4,8 +4,8 @@ all_recipes = []
 fields = ['name', 'image', 'ingredients', 'instructions', 'servings', 'reviews', 'difficulty']
 
 
-def write_to_file():
-    with open('recipes.csv', 'w', newline='') as csv_file:
+def write_to_file(filename):
+    with open(filename, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(fields)
         for r in all_recipes:
@@ -41,7 +41,7 @@ class CSVRecipes:
         self.reviews = reviews
         self.difficulty = difficulty
         all_recipes.append(self)
-        write_to_file()
+
 
 
 CSVRecipes("Chicken and Veggie Stir-Fry", "chicken_and_veggie_stirfry.png",
@@ -89,5 +89,7 @@ CSVRecipes("Pesto Chicken", "pesto_chicken.png",
            ["Serves 4", "Total Time: 22 minutes", "Prep Time: 10 minutes", "Cook Time: 12 minutes"],
            [],
            "easy")
+
+write_to_file('recipes.csv')
 
 

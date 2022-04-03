@@ -1,13 +1,19 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-        <div id="logo">
+  <section class="px-3">
+      <div id="logo">
           <img src="{{ url_for('static', filename='images/logo.png') }}"/>
         </div>
-        <div>
-            <h2>Welcome to Egg-2-Z - we have recipes for everyone!</h2>
-            <h3>Want to join our community? Click the sign up page and start sharing recipes!</h3>
-            <h3>Once you create your account, you can save and add your own recipes to share.</h3>
-        </div>
+    <p class="lead">Welcome</p>
+      <p>Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
+    <p>Already a member? Sign-in to view your recipes</p>
+    <p class="lead">
+      <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
+    </p>
+    <p class="lead">
+      <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
+    </p>
+  </section>
 
 {% endblock %}

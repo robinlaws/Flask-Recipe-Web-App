@@ -23,7 +23,20 @@
     <label for="moderate">Moderate</label>
     <input type="radio" id="hard" name="difficulty" value="hard"><br />
     <label for="hard">Hard</label>
-    <button type="submit" id="submit_recipe">Submit Recipe</button>
+    <button type="submit" name = "btn_identifier" id="submit_recipe" value="add_recipe">Submit Recipe</button>
+</form>
+
+<form method = 'POST'>
+    <h2>Remove Recipe From your Account</h2>
+    {% if all_recipes|length > 0 %}
+        <label for="recipe_remove">Choose recipe to remove:</label>
+        {% for recipes in all_recipes %}
+            <input type="checkbox" id="recipe_remove" name="delete_name" value="{{recipes.name}}">{{recipes.name}}<br />
+        {% endfor %}
+        <button type="submit" id="delete_recipe" name="btn_identifier" value="delete_recipe">Delete Recipe</button>
+    {% else %}
+        <h3>No Recipes in your account</h3>
+    {% endif %}
 </form>
 
 {% endblock %}
