@@ -1,22 +1,35 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-  <section class="px-3">
-      <div id="logo">
-          <img src="{{ url_for('static', filename='images/logo.png') }}"/>
-        </div>
-    <p class="lead">Welcome</p>
-    {% if current_user.is_authenticated %}
-      <p> Welcome Back {{user.first_name}} </p>
-    {% else %}
-      <p>Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
-    <p>Already a member? Sign-in to view your recipes</p>
+<style>
+  .bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
 
-      <p class="lead">
-        <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
-      </p>
-      <p class="lead">
-        <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+      font-size: 3.5rem;
+    }
+}
+</style>
+<div id="logo">
+    <img class="center" src="{{ url_for('static', filename='images/logo.png') }}"/>
+</div>
+  <section class="px-3">
+    {% if current_user.is_authenticated %}
+      <h1> Welcome Back {{current_user.first_name}} </h1>
+    {% else %}
+    <h1>Welcome</h1>
+      <p class="fs-5 col-md-8">Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
+      <p class="fs-5 col-md-8">Already a member? Sign-in to view your recipes</p>
+
+      <p class="mb-5">
+        <a href="/sign-up" class="btn btn-primary btn-lg px-4">SIGN UP</a>
+        <a href="/login" class="btn btn-primary btn-lg px-4">LOGIN</a>
       </p>
     {% endif %}
   </section>

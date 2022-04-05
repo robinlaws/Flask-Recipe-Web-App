@@ -1,11 +1,14 @@
-from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask import Flask, Blueprint, render_template, request, flash, redirect, url_for
 from .models import User, Recipe
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from flask_login import login_user, login_required, logout_user, current_user
 from .static import recipe_dict as r
+import os
 
 auth = Blueprint('auth', __name__)
+app = Flask(__name__)
+app.config['UPLOAD_PATH'] = 'website/static/images'
 
 
 @auth.route('/my_account', methods=['GET', 'POST'])
@@ -18,18 +21,21 @@ def my_account():
             ingredients = request.form.get('ingredients')
             instructions = request.form.get('instructions')
             servings = request.form.get('servings')
-            reviews = request.form.get('reviews')
+            reviews = request.form.get('user_review')
             difficulty = request.form.get('difficulty')
-            image = request.form.get('image_upload')
+            uploaded_file = request.files['image_upload']
+            uploaded_filename = uploaded_file.filename
+            print(uploaded_filename)
+            if uploaded_filename != "":
+                uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], uploaded_file.filename))
+            else:
+                uploaded_filename = 'website/static/images/no_image_available.png'
 
-            image_saved = image.save("website/static")
-            image_url = image_saved.filename
-
-            new_recipe = Recipe(recipe_name=recipe_name, image=image_url, ingredients=ingredients,
+            new_recipe = Recipe(recipe_name=recipe_name, image_url=uploaded_filename, ingredients=ingredients,
                                 instructions=instructions,
                                 servings=servings, reviews=reviews, difficulty=difficulty, user_id=current_user.id)
             db.session.add(new_recipe)
-            r.CSVRecipes(recipe_name, 'image.url', ingredients, instructions, servings, reviews, difficulty)
+            r.CSVRecipes(recipe_name, uploaded_filename, [ingredients], [instructions], [servings], [reviews], difficulty)
             r.write_to_file('website/static/recipes.csv')
             flash('Recipe has been added!', category='success')
         if request.form['btn_identifier'] == "delete_recipe":
@@ -44,7 +50,11 @@ def my_account():
             recipe_review = request.form.get("user_review")
             for rec in all_recipes:
                 if rec.name == recipe_name:
-                    rec.reviews.append([recipe_review, recipe_review_num])
+                    if rec.reviews is None:
+                        rec.reviews = [recipe_review, recipe_review_num]
+                    else:
+                        rec.reviews.append([recipe_review, recipe_review_num])
+
                     r.write_to_file('website/static/recipes.csv')
 
     return render_template("my_account.html", all_recipes=all_recipes)

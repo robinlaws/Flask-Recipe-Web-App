@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Sign up{% endblock %}
 {% block content %}
-<section class="form-signin">
-    <form method="POST">
-        <h1 align="center" class="h3 mb-3 fw-normal">Sign up</h1>
-        <div class=form-floating">
-            <label for="email">Email Address</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"/>
-        </div>
-        <div class="form-floating">
-            <label for="first_name">First Name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter first name"/>
-        </div>
-        <div class="form-floating">
-            <label for="password1">Password</label>
-            <input type="password" class="form-control" id="password1" name="password1" placeholder="Enter password"/>
-        </div>
-        <div class="form-floating">
-            <label for="password2">Confirm Password</label>
-            <input type="password" class="form-control" id="password2" name="password2" placeholder="Confirm password"/>
-        </div>
-        <button type="submit">Sign up</button>
-        <input type="reset">
-    </form>
+<section class="text-center">
+    <div class="form-signin">
+        <form method="POST">
+            <img class="mb-4" src="{{ url_for('static', filename='images/logo.png') }}" alt="" width="72" height="57">
+            <h1 class="h3 mb-3 fw-normal" align="center">Sign Up</h1>
+            <hr>
+            <div class=form-floating">
+                <input type="email" class="form-control" id="floatingInput" name='email' placeholder="Email Address">
+            </div>
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingName" name="first_name" placeholder="Password">
+                <label for="floatingName">First Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword1" name="password1" placeholder="Password">
+                <label for="floatingPassword1">Password</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword2" name="password2" placeholder="Password">
+                <label for="floatingPassword2">Confirm Password</label>
+            </div>
+        <hr>
+            <div><button class="w-50 btn btn-lg btn-primary" type="submit">Sign up</button></div><br>
+            <div><button class="w-50 btn btn-lg btn-primary" type="reset">Reset</button></div>
+        </form>
+    </div>
 </section>
 {% endblock %}

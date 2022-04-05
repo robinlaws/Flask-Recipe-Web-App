@@ -20,7 +20,7 @@
     {% for servings in recipe.servings %}
         <li id="servings">{{servings}}</li>
     {% endfor %}
-    {% if recipe.reviews is defined %}
+    {% if recipe.reviews is not none %}
         {% for reviews in recipe.reviews %}
             <li id="reviews">{{ reviews }}</li>
         {% endfor %}

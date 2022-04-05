@@ -2,27 +2,13 @@
 {% block title %}MY Account{% endblock %}
 {% block content %}
 
-<style>
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-  }
-
-  @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-  }
-</style>
 <h1>My Recipe Account</h1>
 <h2>Welcome to your recipe page!</h2>
+
 <a id="add_recipe_link" name="add_recipe_link" onclick="showAddRecipe()">Click here to add a recipe</a>
 <div id="add_recipe">
     <section class="bg-light">
-        <form method = 'POST' class="needs-validation">
+        <form method = 'POST' class="needs-validation" enctype="multipart/form-data">
             <div>
                 <label for="recipe_name" class="form-label">Recipe Name:</label>
                 <input type="text" class='form-control' id="recipe_name" name="recipe_name" value="" required>
@@ -49,29 +35,31 @@
                 <label for="review">Review:</label>
                 <textarea class="form-control" id="review" name="review"></textarea>
             </div>
-            <hr class="my-4">
             <div>
                 <legend>Difficulty: </legend>
                 <div>
-                  <input id="easy" name="difficulty" type="radio" class="form-check-input" checked required>
+                  <input id="easy" name="difficulty" type="radio" class="form-check-input" value="Easy" checked required>
                   <label class="form-check-label" for="easy">Easy</label>
                 </div>
                 <div>
-                    <input id="moderate" name="difficulty" type="radio" class="form-check-input" checked required>
+                    <input id="moderate" name="difficulty" type="radio" class="form-check-input" value="Moderate" checked required>
                     <label class="form-check-label" for="moderate">Moderate</label>
                 </div>
                 <div>
-                  <input id="hard" name="difficulty" type="radio" class="form-check-input" checked required>
+                  <input id="hard" name="difficulty" type="radio" class="form-check-input" value = "Hard" checked required>
                   <label class="form-check-label" for="hard">Hard</label>
                 </div>
             </div>
-            <label for="image_upload">Add a picture</label>
+            <div>
+            <label for="image_upload">Add a picture</label><br>
             <input type="file" id="image_upload" name="image_upload" accept="image/png, image/jpeg">
             <button type="submit" class="w-100 btn btn-primary btn-lg" name = "btn_identifier" id="submit_recipe" value="add_recipe">Submit Recipe</button>
+            </div>
         </form>
     </section>
 </div>
-    </div>
+<hr>
+
 
 <a id="del_recipe_link" name="del_recipe_link" onclick="showDelRecipe()">Click here to delete a recipe</a>
 <div id="del_recipe">
@@ -79,7 +67,7 @@
         <form method = 'POST'>
             <div>
                 <legend>Choose a recipe to remove: </legend>
-            </div>
+
             {% if all_recipes|length > 0 %}
                 {% for recipes in all_recipes %}
                     <input type="checkbox" id="recipe_remove" name="delete_name" value="{{recipes.name}}">{{recipes.name}}<br />
@@ -88,9 +76,11 @@
             {% else %}
                 <h3>No Recipes in your account</h3>
             {% endif %}
+            </div>
         </form>
     </section>
 </div>
+<hr>
 
 <a id="leave_review" name="leave_review" onclick="showReviews()">Click here to leave a review</a>
 <div id="reviews">
@@ -128,25 +118,26 @@
         </form>
     </section>
   </div>
-
+<hr>
 <a id="see_reviews" name="see_reviews" onclick="showReviewed()">Click here to see your recipe reviews</a>
 <div id="show_reviews">
     <section class="bg-light">
         {% if all_recipes|length > 0 %}
             {% for recipes in all_recipes %}
-                {% for reviews in recipes.reviews %}
-                    {% if reviews|length > 0 %}
-                        <p>{{recipes.name}}: {{reviews[1]}} / 5 STARS</p>
-                        <p>Comments: {{reviews[0]}}</p>
-                    {% endif %}
-                {% endfor %}
+                {% if recipes.reviews is not none %}
+                        {% if reviews is not none %}
+                            {% for reviews in recipes.reviews %}
+                                <p>{{recipes.name}}: {{reviews[1]}} / 5 STARS</p>
+                                <p>Comments: {{reviews[0]}}</p>
+                            {% endfor %}
+                        {% else %}
+                            <h3>No Reviews yet!</h3>
+                        {% endif %}
+                {% else %}
+                    <h3>No Reviews yet!</h3>
+                {% endif %}
             {% endfor %}
-        {% else %}
-            <h3>No Reviews yet!</h3>
         {% endif %}
     </section>
 </div>
-
-
-
 {% endblock %}
