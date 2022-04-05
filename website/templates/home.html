@@ -6,14 +6,19 @@
           <img src="{{ url_for('static', filename='images/logo.png') }}"/>
         </div>
     <p class="lead">Welcome</p>
+    {% if current_user.is_authenticated %}
+      <p> Welcome Back {{user.first_name}} </p>
+    {% else %}
       <p>Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
     <p>Already a member? Sign-in to view your recipes</p>
-    <p class="lead">
-      <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
-    </p>
-    <p class="lead">
-      <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
-    </p>
+
+      <p class="lead">
+        <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
+      </p>
+      <p class="lead">
+        <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
+      </p>
+    {% endif %}
   </section>
 
 {% endblock %}

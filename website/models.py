@@ -1,6 +1,7 @@
 from website import *
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Recipe(db.Model):
@@ -22,6 +23,16 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     recipes = db.relationship('Recipe')
+
+    def __init__(self, email, first_name, password):
+        self.email = email
+        self.first_name = first_name
+        self.password = generate_password_hash(password)
+
+    def verify_password(self, pwd):
+        return check_password_hash(self.password, pwd)
+
+
 
 
 

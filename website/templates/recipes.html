@@ -20,11 +20,15 @@
     {% for servings in recipe.servings %}
         <li id="servings">{{servings}}</li>
     {% endfor %}
-    <div><h3>Reviews: </h3></div>
-    {% for reviews in recipe.reviews %}
-        <li id="reviews">{{ reviews }}</li>
-    {% endfor %}
+    {% if recipe.reviews is defined %}
+        {% for reviews in recipe.reviews %}
+            <li id="reviews">{{ reviews }}</li>
+        {% endfor %}
+    {% endif %}
+
 {% endfor %}
+
+
 
 
 

@@ -43,7 +43,6 @@ class CSVRecipes:
         all_recipes.append(self)
 
 
-
 CSVRecipes("Chicken and Veggie Stir-Fry", "chicken_and_veggie_stirfry.png",
            ["1lb chicken breast", "salt", "pepper", "1lb broccoli florets", "8 oz mushroom", "3 tbl oil",
             "3 cloves garlic",
@@ -91,5 +90,3 @@ CSVRecipes("Pesto Chicken", "pesto_chicken.png",
            "easy")
 
 write_to_file('recipes.csv')
-
-

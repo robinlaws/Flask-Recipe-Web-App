@@ -20,8 +20,13 @@ def my_account():
             servings = request.form.get('servings')
             reviews = request.form.get('reviews')
             difficulty = request.form.get('difficulty')
+            image = request.form.get('image_upload')
 
-            new_recipe = Recipe(recipe_name=recipe_name, ingredients=ingredients, instructions=instructions,
+            image_saved = image.save("website/static")
+            image_url = image_saved.filename
+
+            new_recipe = Recipe(recipe_name=recipe_name, image=image_url, ingredients=ingredients,
+                                instructions=instructions,
                                 servings=servings, reviews=reviews, difficulty=difficulty, user_id=current_user.id)
             db.session.add(new_recipe)
             r.CSVRecipes(recipe_name, 'image.url', ingredients, instructions, servings, reviews, difficulty)
@@ -32,6 +37,14 @@ def my_account():
             for rec in all_recipes:
                 if rec.name == recipe_name:
                     all_recipes.remove(rec)
+                    r.write_to_file('website/static/recipes.csv')
+        if request.form['btn_identifier'] == "review_recipe":
+            recipe_name = request.form.get('review_name')
+            recipe_review_num = request.form.get("user_rating")
+            recipe_review = request.form.get("user_review")
+            for rec in all_recipes:
+                if rec.name == recipe_name:
+                    rec.reviews.append([recipe_review, recipe_review_num])
                     r.write_to_file('website/static/recipes.csv')
 
     return render_template("my_account.html", all_recipes=all_recipes)
@@ -49,7 +62,7 @@ def login():
             if check_password_hash(user.password, password):
                 flash('Logged in successfully', category='success')
                 login_user(user, remember=True)
-                return redirect(url_for('views.home'))
+                return redirect(url_for('auth.recipes'))
             else:
                 flash("Incorrect password.", category='error')
         else:
@@ -85,8 +98,7 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name,
-                            password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email, first_name, password1)
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -96,8 +108,9 @@ def sign_up():
     return render_template("sign_up.html", user=current_user)
 
 
-@auth.route('/recipes', methods=['GET'])
+@auth.route('/recipes', methods=['GET', 'POST'])
 @login_required
 def recipes():
     all_recipes = r.get_all_recipes()
+
     return render_template("recipes.html", user=current_user, all_recipes=all_recipes)
