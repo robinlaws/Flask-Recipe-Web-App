@@ -8,10 +8,14 @@ function deleteRecipe(recipeId) {
     }
 
 function newLineIngredients() {
-    $('<input type="text" class="form-control" value="" name="ingredients">').insertAfter($("#ingredients"));
+    num_of_rows = $('#ingredients').attr("rows");
+    add_row = parseInt(num_of_rows) + 1;
+    $("#ingredients").attr("rows", add_row);
 }
 function newLineInstructions() {
-    $('<input type="text" class="form-control" value="" name="instructions">').insertAfter($("#instructions"));
+    num_of_rows = $('#instructions').attr("rows");
+    add_row = parseInt(num_of_rows) + 1;
+    $("#instructions").attr("rows", add_row);
 }
 function delLineIngredients() {
    $("#ingredients").siblings(":last").remove();

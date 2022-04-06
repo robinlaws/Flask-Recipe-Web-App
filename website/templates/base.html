@@ -8,38 +8,26 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
 
-  <body>
-  <div class="col-lg-8 mx-auto p-3 py-md-5">
-      <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-        <h3>EGG-2-Z</h3>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+  <body class="d-flex h-100 text-center text-white bg-dark">
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div>
+          <h3 class="float-md-start mb-0">EGG-2-Z</h3>
+          <nav class="nav nav-masthead justify-content-center float-md-end">
             {% if current_user.is_authenticated %}
-            <li class="nav-item active">
               <a class="nav-link" aria-current="page" id="my_account" href="/my_account">My Account</a>
-            </li>
-            <li class="nav-item active">
               <a class="nav-link" aria-current="page" id="recipes" href="/recipes">Recipes</a>
-            </li>
-            <li class="nav-item active">
-              <a class="nav-link" id="logout" href="/logout">Logout</a>
-            </li>
+              <a class="nav-link" aria-current="page" id="logout" href="/logout">Logout</a>
             {% else %}
-            <li class="nav-item active">
               <a class="nav-link" id="home" href="/">Home</a>
-            </li>
-            <li class="nav-item active">
               <a class="nav-link" id="login" href="/login">Login</a>
-            </li>
-            <li class="nav-item active">
               <a class="nav-link" id="sign-up" href="/sign-up">Sign Up</a>
-            </li>
             {% endif %}
-            </ul>
-          </div>
-        </nav>
+          </nav>
+        </div>
       </header>
+
+
 
     {%with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
@@ -52,9 +40,15 @@
           {% endfor %}
       {% endif %}
     {% endwith %}
+    <main class="px-3">
+      <div class="container">{% block content %}{% endblock %}</div>
+    </main>
 
-    <div class="container">{% block content %}{% endblock %}</div>
-  </div>
+    <footer class="mt-auto text-white-50">
+      <hr>
+    <p>EGG-2-Z <a href="https://github.com/robinlaws/python-recipes-web-app.git" class="text-white">Source Code</a>, by Robin Laws CP1895</p>
+    </footer>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='index.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

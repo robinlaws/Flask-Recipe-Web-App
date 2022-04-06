@@ -21,11 +21,10 @@ def my_account():
             ingredients = request.form.get('ingredients')
             instructions = request.form.get('instructions')
             servings = request.form.get('servings')
-            reviews = request.form.get('user_review')
+            reviews = request.form.get('review')
             difficulty = request.form.get('difficulty')
             uploaded_file = request.files['image_upload']
             uploaded_filename = uploaded_file.filename
-            print(uploaded_filename)
             if uploaded_filename != "":
                 uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], uploaded_file.filename))
             else:
@@ -45,17 +44,12 @@ def my_account():
                     all_recipes.remove(rec)
                     r.write_to_file('website/static/recipes.csv')
         if request.form['btn_identifier'] == "review_recipe":
-            recipe_name = request.form.get('review_name')
-            recipe_review_num = request.form.get("user_rating")
-            recipe_review = request.form.get("user_review")
+            rec_name = request.form.get('review_choice')
             for rec in all_recipes:
-                if rec.name == recipe_name:
-                    if rec.reviews is None:
-                        rec.reviews = [recipe_review, recipe_review_num]
-                    else:
-                        rec.reviews.append([recipe_review, recipe_review_num])
-
-                    r.write_to_file('website/static/recipes.csv')
+                if rec.name == rec_name:
+                    reviews = rec.reviews
+                    reviews.append(request.form.get('user_review'))
+                    rec.reviews = reviews
 
     return render_template("my_account.html", all_recipes=all_recipes)
 
@@ -122,5 +116,4 @@ def sign_up():
 @login_required
 def recipes():
     all_recipes = r.get_all_recipes()
-
     return render_template("recipes.html", user=current_user, all_recipes=all_recipes)

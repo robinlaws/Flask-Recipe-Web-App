@@ -24,12 +24,12 @@
       <h1> Welcome Back {{current_user.first_name}} </h1>
     {% else %}
     <h1>Welcome</h1>
-      <p class="fs-5 col-md-8">Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
-      <p class="fs-5 col-md-8">Already a member? Sign-in to view your recipes</p>
+      <p class="lead">Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
+      <p class="lead">Already a member? Sign-in to view your recipes</p>
 
       <p class="mb-5">
-        <a href="/sign-up" class="btn btn-primary btn-lg px-4">SIGN UP</a>
-        <a href="/login" class="btn btn-primary btn-lg px-4">LOGIN</a>
+        <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
+        <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
       </p>
     {% endif %}
   </section>

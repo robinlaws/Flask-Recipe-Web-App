@@ -75,7 +75,7 @@ CSVRecipes("Butter Chicken", "butter_chicken.png",
                "Serve the chicken over rice and garnish with cilantro."],
            ["Serves 4", "Total Time: 50 minutes", "Prep Time: 10 minutes", "Cook Time: 25 minutes"],
            [],
-           "medium")
+           "Medium")
 
 CSVRecipes("Pesto Chicken", "pesto_chicken.png",
            ["2 tablespoons olive oil", "4 boneless, skinless chicken thighs, sliced", "salt", "pepper",
@@ -87,6 +87,6 @@ CSVRecipes("Pesto Chicken", "pesto_chicken.png",
             "Serve immediately or divide into 4 food storage containers and store in the refrigerator. Can be kept refrigerated for up to 4 days."],
            ["Serves 4", "Total Time: 22 minutes", "Prep Time: 10 minutes", "Cook Time: 12 minutes"],
            [],
-           "easy")
+           "Easy")
 
 write_to_file('recipes.csv')

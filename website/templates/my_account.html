@@ -2,58 +2,56 @@
 {% block title %}MY Account{% endblock %}
 {% block content %}
 
-<h1>My Recipe Account</h1>
-<h2>Welcome to your recipe page!</h2>
+<h1>My Recipe Account</h1><br>
+<div id="logo">
+    <img class="center" width="100" height="75" alt="Egg-2-Z" src="{{ url_for('static', filename='images/logo.png') }}"/>
+</div>
+<h4 class="h4_title">What would you like to do?</h4>
 
-<a id="add_recipe_link" name="add_recipe_link" onclick="showAddRecipe()">Click here to add a recipe</a>
+<a id="add_recipe_link" class="link-light" name="add_recipe_link" onclick="showAddRecipe()">ADD A RECIPE</a>
 <div id="add_recipe">
-    <section class="bg-light">
+    <section class="form-signin">
         <form method = 'POST' class="needs-validation" enctype="multipart/form-data">
             <div>
                 <label for="recipe_name" class="form-label">Recipe Name:</label>
-                <input type="text" class='form-control' id="recipe_name" name="recipe_name" value="" required>
+                <input type="text" class='form-control form-control-sm' id="recipe_name" name="recipe_name" value="" required>
             </div>
             <div>
                 <label for="ingredients">Ingredients:</label>
                 <span><button type="button" id="ingredients_new_line" value="+" onclick="newLineIngredients()">+</button></span>
-                <span><button type="button" id="ingredients_del_line" value="-" onclick="delLineIngredients()">-</button></span>
-                <input type="text" class="form-control" value="" name="ingredients" id="ingredients" required>
-            </div>
+                <textarea class="form-control form-control-sm" name="ingredients" id="ingredients" rows="5" required></textarea>
 
+            </div>
             <div>
                 <label for="instructions">Instructions:</label>
                 <span><button type="button" id="instructions_new_line" value="+" onclick="newLineInstructions()">+</button></span>
-                <span><button type="button" id="instructions_del_line" value="-" onclick="delLineInstructions()">-</button></span>
-                <input type="text" class="form-control" value="" name="instructions" id="instructions" required>
-
+                <textarea class="form-control form-control-sm" name="instructions" id="instructions" rows="5" required></textarea>
             </div>
             <div>
                 <label for="servings">Serves:</label>
-                <input type="text" class="form-control" value="" id="servings" name="servings">
+                <input type="text" class="form-control form-control-sm" value="" id="servings" name="servings">
             </div>
             <div>
                 <label for="review">Review:</label>
-                <textarea class="form-control" id="review" name="review"></textarea>
+                <textarea class="form-control form-control-sm" id="review" name="review"></textarea>
             </div>
-            <div>
-                <legend>Difficulty: </legend>
-                <div>
-                  <input id="easy" name="difficulty" type="radio" class="form-check-input" value="Easy" checked required>
-                  <label class="form-check-label" for="easy">Easy</label>
-                </div>
-                <div>
-                    <input id="moderate" name="difficulty" type="radio" class="form-check-input" value="Moderate" checked required>
-                    <label class="form-check-label" for="moderate">Moderate</label>
-                </div>
-                <div>
-                  <input id="hard" name="difficulty" type="radio" class="form-check-input" value = "Hard" checked required>
-                  <label class="form-check-label" for="hard">Hard</label>
-                </div>
+            <div class="form-check">
+                <input id="easy" name="difficulty" type="radio" class="form-check-input" value="Easy" checked required>
+                <label class="form-check-label" for="easy">Easy</label>
             </div>
-            <div>
-            <label for="image_upload">Add a picture</label><br>
-            <input type="file" id="image_upload" name="image_upload" accept="image/png, image/jpeg">
-            <button type="submit" class="w-100 btn btn-primary btn-lg" name = "btn_identifier" id="submit_recipe" value="add_recipe">Submit Recipe</button>
+            <div class="form-check">
+                <input id="moderate" name="difficulty" type="radio" class="form-check-input" value="Moderate" checked required>
+                <label class="form-check-label" for="moderate">Moderate</label>
+            </div>
+            <div class="form-check">
+              <input id="hard" name="difficulty" type="radio" class="form-check-input" value = "Hard" checked required>
+              <label class="form-check-label" for="hard">Hard</label>
+            </div>
+            <hr>
+            <div class="mb-3">
+                <label for="image_upload" class="form-label">Add a picture:</label>
+                <input class="form-control form-control-sm" type="file" id="image_upload" name="image_upload" accept="image/png, image/jpeg">
+                <button type="submit" class="w-75 btn btn-primary btn-lg" name = "btn_identifier" id="submit_recipe" value="add_recipe">Submit Recipe</button>
             </div>
         </form>
     </section>
@@ -61,80 +59,64 @@
 <hr>
 
 
-<a id="del_recipe_link" name="del_recipe_link" onclick="showDelRecipe()">Click here to delete a recipe</a>
-<div id="del_recipe">
-    <section class="bg-light">
+<a id="del_recipe_link" name="del_recipe_link" class="link-light" onclick="showDelRecipe()">DELETE A RECIPE</a>
+<div id="del_recipe" >
+    <section class="form-signin">
         <form method = 'POST'>
             <div>
-                <legend>Choose a recipe to remove: </legend>
-
-            {% if all_recipes|length > 0 %}
-                {% for recipes in all_recipes %}
-                    <input type="checkbox" id="recipe_remove" name="delete_name" value="{{recipes.name}}">{{recipes.name}}<br />
-                {% endfor %}
-                <button type="submit" id="delete_recipe" name="btn_identifier" value="delete_recipe">Delete Recipe</button>
-            {% else %}
-                <h3>No Recipes in your account</h3>
-            {% endif %}
+                {% if all_recipes|length > 0 %}
+                    {% for recipes in all_recipes %}
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="recipe_remove" name="delete_name" value="{{recipes.name}}">
+                    <label class="form-check-label" for="recipe_remove">{{recipes.name}}</label>
+                </div>
+                    {% endfor %}
+                <div>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit" id="delete_recipe" name="btn_identifier" value="delete_recipe">Delete Recipe</button>
+                </div>
+                {% else %}
+                    <h3>No Recipes in your account</h3>
+                {% endif %}
             </div>
         </form>
     </section>
 </div>
 <hr>
 
-<a id="leave_review" name="leave_review" onclick="showReviews()">Click here to leave a review</a>
+<a id="leave_review" name="leave_review" class="link-light" onclick="showReviews()">REVIEW A RECIPE</a>
 <div id="reviews">
-    <section class="bg-light">
+    <section class="form-signin">
         <form method = 'POST'>
-            <div>
-                <legend>Choose a recipe to review: </legend>
-            </div>
             {% if all_recipes|length > 0 %}
                 {% for recipes in all_recipes %}
-                    <input type="radio" id="review_choice" name="review_name" value="{{recipes.name}}">{{recipes.name}}<br />
+            <div class="form-check">
+                    <input type="radio" class="form-check-input" id="review_choice" name="review_name" value="{{recipes.name}}">{{recipes.name}}<br />
+            </div>
                 {% endfor %}
             {% else %}
                 <h3>No Recipes in your account</h3>
             {% endif %}
-          <div class="form-check form-check-inline">
-            <input type="radio" name="user_rating" value="1" id="1"> 1
-          </div>
-          <div class="form-check form-check-inline">
-            <input type="radio" name="user_rating" value="2" id="2"> 2
-          </div>
-          <div class="form-check form-check-inline">
-            <input type="radio" name="user_rating" value="3" id="3"> 3
-          </div>
-          <div class="form-check form-check-inline">
-            <input type="radio" name="user_rating" value="4" id="4"> 4
-          </div>
-          <div class="form-check form-check-inline">
-            <input type="radio" name="user_rating" value="5" id="5"> 5
-          </div>
-            <div style="align: center" class="form-label-group">
-                <textarea placeholder="Leave your comments here." name="user_review" class="form-control" rows="2"></textarea>
+            <div class="form-label-group">
+                <textarea placeholder="Leave your comments here." name="user_review" class="form-control form-control-sm" rows="2"></textarea>
             </div>
-            <button type="submit" id="review_choice_btn" name="btn_identifier" value="review_recipe">Submit</button><button type="reset">Reset</button>
+            <br>
+            <div>
+                <button type="submit" class="w-75 btn btn-primary btn-lg" id="review_choice_btn" name="btn_identifier" value="review_recipe">Submit</button>
+            </div>
         </form>
     </section>
   </div>
 <hr>
-<a id="see_reviews" name="see_reviews" onclick="showReviewed()">Click here to see your recipe reviews</a>
+<a id="see_reviews" name="see_reviews" class="link-light" onclick="showReviewed()">SEE YOUR RECIPE REVIEWS</a>
 <div id="show_reviews">
-    <section class="bg-light">
+    <section class="form-signin">
         {% if all_recipes|length > 0 %}
             {% for recipes in all_recipes %}
-                {% if recipes.reviews is not none %}
-                        {% if reviews is not none %}
-                            {% for reviews in recipes.reviews %}
-                                <p>{{recipes.name}}: {{reviews[1]}} / 5 STARS</p>
-                                <p>Comments: {{reviews[0]}}</p>
-                            {% endfor %}
-                        {% else %}
-                            <h3>No Reviews yet!</h3>
-                        {% endif %}
+                {% if recipes.reviews|length > 0 %}
+                    <li class="review_paragraph">{{recipes.name}}: {{recipes.reviews}}</li>
                 {% else %}
-                    <h3>No Reviews yet!</h3>
+                    <li class="review_paragraph">{{recipes.name}}:
+                        <li>No Reviews yet!</li></li>
                 {% endif %}
             {% endfor %}
         {% endif %}
