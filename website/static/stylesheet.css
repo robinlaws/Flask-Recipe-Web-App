@@ -91,7 +91,7 @@ body {
   text-shadow: none;
 }
 
-/* list styling */
+/* list/link/header styling */
 
 .align_to_left {
 text-align: left;
@@ -112,9 +112,10 @@ margin-top: 50px;
   }
 
 .review_paragraph {
-text-align: left;
+text-align: center;
 text-size: small;
 list-style: none;
+color: pink;
 }
 
 .h4_title{
@@ -125,9 +126,15 @@ margin-bottom: 50px;
 a.link-light:hover {
 color: pink;
 cursor: pointer;
-
 }
 
+a.link-light {
+text-size: 100px;
+}
+
+.h4_title, h1 {
+color: pink;
+}
 
 
 

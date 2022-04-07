@@ -7,39 +7,27 @@
 </div>
 <hr><br><br>
 
+{% if all_recipes|length == 0 %}
+    <h3>Oh no! Nothing in your account right now.</h3>
+    <h3><small class="text-muted"> Go to your account to add new recipes.</small></h3><br><br><br>
+{% else %}
 {% for recipe in all_recipes %}
-
     <img class="recipe_images" src="static/images/{{recipe.image}}">
     <div id="recipe_name"><h2>{{recipe.name}}</h2></div>
     <div id="difficulty"><h3>Difficulty: {{recipe.difficulty}}</h3></div>
-    <div class = "align_to_left"><h4>Ingredients: </h4>
-    {% for ingredients in recipe.ingredients %}
-        <li id="ingredients">{{ ingredients }}</li>
-    {% endfor %}
+    <div class = "align_to_left">
+        <h4>Ingredients: </h4>
+            <li>{{ recipe.ingredients }}</li>
         <br>
-    <div><h4>Instructions: </h4></div>
-    {% for instructions in recipe.instructions %}
-        <li id="instructions">{{instructions}}</li>
-    {% endfor %}
+        <div><h4>Instructions: </h4></div>
+            <li>{{ recipe.instructions}}</li>
         <br>
-    <div><h4>Servings: </h4></div>
-    {% for servings in recipe.servings %}
-        <li id="servings">{{servings}}</li>
-    {% endfor %}
-    {% if recipe.reviews is not none %}
-        {% for reviews in recipe.reviews %}
+        <div><h4>Servings: </h4></div>
+            <li>{{ recipe.servings}}</li>
         <br>
-            <li id="reviews">{{ reviews }}</li>
-        {% endfor %}
-    {% endif %}
     </div>
 <hr><br><br>
-
 {% endfor %}
-
-
-
-
+{% endif %}
 
 {% endblock %}
-

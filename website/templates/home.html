@@ -1,36 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<style>
-  .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
-}
 
-@media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-}
-</style>
 <div id="logo">
     <img class="center" src="{{ url_for('static', filename='images/logo.png') }}"/>
 </div>
+
   <section class="px-3">
     {% if current_user.is_authenticated %}
       <h1> Welcome Back {{current_user.first_name}} </h1>
     {% else %}
-    <h1>Welcome</h1>
-      <p class="lead">Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
-      <p class="lead">Already a member? Sign-in to view your recipes</p>
+      <h1>Welcome</h1>
+        <p class="lead">Want to join our community? Click the sign-up page and start sharing and saving recipes.</p>
+        <p class="lead">You will get 3 of our own recipes to try when you sign-up!</p><br>
+        <p class="lead">Already a member? Sign-in to view your recipes</p>
 
-      <p class="mb-5">
-        <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
-        <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
-      </p>
+        <p class="mb-5">
+          <a href="/sign-up" class="btn btn-lg btn-secondary fw-bold border-white bg-white">SIGN UP</a>
+          <a href="/login" class="btn btn-lg btn-secondary fw-bold border-white bg-white">LOGIN</a>
+        </p>
     {% endif %}
   </section>
 

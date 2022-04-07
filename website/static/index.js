@@ -1,12 +1,3 @@
-function deleteRecipe(recipeId) {
-    fetch('/delete-recipe', {
-        method: 'POST',
-        body: JSON.stringify({recipeId: recipeId})
-    }).then((_res) => {
-    window.location.href = "/";
-    });
-    }
-
 function newLineIngredients() {
     num_of_rows = $('#ingredients').attr("rows");
     add_row = parseInt(num_of_rows) + 1;
@@ -37,5 +28,6 @@ $("#reviews").toggle("container");
 function showReviewed() {
 $("#show_reviews").toggle("container");
 }
+
 
 

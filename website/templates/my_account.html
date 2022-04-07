@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}MY Account{% endblock %}
+{% block title %}My Account{% endblock %}
 {% block content %}
 
 <h1>My Recipe Account</h1><br>
@@ -7,8 +7,7 @@
     <img class="center" width="100" height="75" alt="Egg-2-Z" src="{{ url_for('static', filename='images/logo.png') }}"/>
 </div>
 <h4 class="h4_title">What would you like to do?</h4>
-
-<a id="add_recipe_link" class="link-light" name="add_recipe_link" onclick="showAddRecipe()">ADD A RECIPE</a>
+<a id="add_recipe_link" class="link-light" name="add_recipe_link" onclick="showAddRecipe()"><h5>ADD A RECIPE</h5></a>
 <div id="add_recipe">
     <section class="form-signin">
         <form method = 'POST' class="needs-validation" enctype="multipart/form-data">
@@ -58,8 +57,7 @@
 </div>
 <hr>
 
-
-<a id="del_recipe_link" name="del_recipe_link" class="link-light" onclick="showDelRecipe()">DELETE A RECIPE</a>
+<a id="del_recipe_link" name="del_recipe_link" class="link-light" onclick="showDelRecipe()"><h5>DELETE A RECIPE</h5></a>
 <div id="del_recipe" >
     <section class="form-signin">
         <form method = 'POST'>
@@ -67,12 +65,12 @@
                 {% if all_recipes|length > 0 %}
                     {% for recipes in all_recipes %}
                 <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="recipe_remove" name="delete_name" value="{{recipes.name}}">
+                    <input type="radio" class="form-check-input" id="recipe_remove" name="delete_name" value="{{recipes.name}}">
                     <label class="form-check-label" for="recipe_remove">{{recipes.name}}</label>
                 </div>
                     {% endfor %}
                 <div>
-                    <button class="w-100 btn btn-primary btn-lg" type="submit" id="delete_recipe" name="btn_identifier" value="delete_recipe">Delete Recipe</button>
+                    <button class="w-100 btn btn-primary btn-lg" type="submit" id="delete_recipe" name="btn_identifier" value="delete_recipe" onclick="return confirm('Are you sure? This will delete recipe for good!')">Delete Recipe</button>
                 </div>
                 {% else %}
                     <h3>No Recipes in your account</h3>
@@ -83,43 +81,48 @@
 </div>
 <hr>
 
-<a id="leave_review" name="leave_review" class="link-light" onclick="showReviews()">REVIEW A RECIPE</a>
+<a id="leave_review" name="leave_review" class="link-light" onclick="showReviews()"><h5>REVIEW A RECIPE</h5></a>
 <div id="reviews">
     <section class="form-signin">
         <form method = 'POST'>
             {% if all_recipes|length > 0 %}
                 {% for recipes in all_recipes %}
-            <div class="form-check">
-                    <input type="radio" class="form-check-input" id="review_choice" name="review_name" value="{{recipes.name}}">{{recipes.name}}<br />
-            </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="review_choice" name="review_choice" value="{{recipes.name}}">{{recipes.name}}<br />
+                    </div>
                 {% endfor %}
-            {% else %}
-                <h3>No Recipes in your account</h3>
-            {% endif %}
             <div class="form-label-group">
                 <textarea placeholder="Leave your comments here." name="user_review" class="form-control form-control-sm" rows="2"></textarea>
             </div>
             <br>
             <div>
-                <button type="submit" class="w-75 btn btn-primary btn-lg" id="review_choice_btn" name="btn_identifier" value="review_recipe">Submit</button>
+                <button type="submit" class="w-75 btn btn-primary btn-lg" id="review_recipe" name="btn_identifier" value="review_recipe">Submit</button>
             </div>
+            {% else %}
+                <h3>No Recipes in your account</h3>
+            {% endif %}
         </form>
     </section>
   </div>
 <hr>
-<a id="see_reviews" name="see_reviews" class="link-light" onclick="showReviewed()">SEE YOUR RECIPE REVIEWS</a>
+
+<a id="see_reviews" name="see_reviews" class="link-light" onclick="showReviewed()"><h5>SEE YOUR RECIPE REVIEWS</h5></a>
 <div id="show_reviews">
     <section class="form-signin">
         {% if all_recipes|length > 0 %}
             {% for recipes in all_recipes %}
-                {% if recipes.reviews|length > 0 %}
-                    <li class="review_paragraph">{{recipes.name}}: {{recipes.reviews}}</li>
+                {% if recipes.reviews != "" %}
+                    <li class="review_paragraph">{{recipes.name}}<li>{{recipes.reviews}}</li></li>
+                    <br>
                 {% else %}
-                    <li class="review_paragraph">{{recipes.name}}:
-                        <li>No Reviews yet!</li></li>
+                    <li class="review_paragraph">{{recipes.name}}:<li>No Reviews yet!</li></li>
+                    <br>
                 {% endif %}
             {% endfor %}
+        {% else %}
+                <h3>No Recipes in your account</h3>
         {% endif %}
     </section>
 </div>
+
 {% endblock %}
