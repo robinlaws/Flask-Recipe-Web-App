@@ -76,7 +76,6 @@ def get_user_recipes(user):
     for recipes in all_recipes:
         if recipes.user == user:
             user_recipes.append(recipes)
-            print(user_recipes)
     return user_recipes
 
 

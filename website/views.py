@@ -30,14 +30,23 @@ def my_account():
             difficulty = request.form.get('difficulty')
             uploaded_file = request.files['image_upload']
             uploaded_filename = uploaded_file.filename
+
             if uploaded_filename != "":
                 uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], uploaded_file.filename))
             else:
                 uploaded_filename = 'no_image_available.png'
-            CSVRecipes(user, recipe_name, uploaded_filename, [ingredients], [instructions], [servings], [reviews], difficulty)
-            write_to_file('recipes.csv')
-            flash('Recipe has been added!', category='success')
-            my_recipes = get_user_recipes(user)
+
+            if len(recipe_name) < 5:
+                flash("Recipe name must be at least 5 characters.", category='error')
+            elif len(ingredients) < 10:
+                flash("Ingredients must be at least 10 characters.", category='error')
+            elif len(instructions) < 20:
+                flash("Ingredients must be at least 20 characters.", category='error')
+            else:
+                CSVRecipes(user, recipe_name, uploaded_filename, [ingredients], [instructions], [servings], [reviews], difficulty)
+                write_to_file('recipes.csv')
+                flash('Recipe has been added!', category='success')
+                my_recipes = get_user_recipes(user)
 
         if request.form['btn_identifier'] == "delete_recipe":
             recipe_name = request.form.get('delete_name')
