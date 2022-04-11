@@ -30,11 +30,13 @@ def my_account():
             difficulty = request.form.get('difficulty')
             uploaded_file = request.files['image_upload']
             uploaded_filename = uploaded_file.filename
-
-            if uploaded_filename != "":
-                uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], uploaded_file.filename))
+            if uploaded_filename.lower().endswith((".jpg", '.jpeg', '.png')):
+                if uploaded_filename != "":
+                    uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], uploaded_file.filename))
+                else:
+                    uploaded_filename = 'no_image_available.png'
             else:
-                uploaded_filename = 'no_image_available.png'
+                flash('Invalid file type. No file has been uploaded.', category='error')
 
             if len(recipe_name) < 5:
                 flash("Recipe name must be at least 5 characters.", category='error')
