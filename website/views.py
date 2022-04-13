@@ -33,10 +33,9 @@ def my_account():
             if uploaded_filename.lower().endswith((".jpg", '.jpeg', '.png')):
                 if uploaded_filename != "":
                     uploaded_file.save(os.path.join(app.config['UPLOAD_PATH'], uploaded_file.filename))
-                else:
-                    uploaded_filename = 'no_image_available.png'
             else:
-                flash('Invalid file type. No file has been uploaded.', category='error')
+                uploaded_filename = 'no_image_available.png'
+                flash('No image has been uploaded.', category='error')
 
             if len(recipe_name) < 5:
                 flash("Recipe name must be at least 5 characters.", category='error')
@@ -45,9 +44,9 @@ def my_account():
             elif len(instructions) < 20:
                 flash("Ingredients must be at least 20 characters.", category='error')
             else:
-                CSVRecipes(user, recipe_name, uploaded_filename, [ingredients], [instructions], [servings], [reviews], difficulty)
+                CSVRecipes(user, recipe_name, uploaded_filename, ingredients, instructions, servings, reviews, difficulty)
                 write_to_file('recipes.csv')
-                flash('Recipe has been added!', category='success')
+                flash('Recipe has been added! See all your recipes on Recipes page.', category='success')
                 my_recipes = get_user_recipes(user)
 
         if request.form['btn_identifier'] == "delete_recipe":
