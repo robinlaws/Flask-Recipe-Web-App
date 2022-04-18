@@ -51,6 +51,5 @@ o	Login.html – login html template
 o	my_account.html – account html template
 o	recipes.html – recipes html template
 o	sign_up.html – sign up html template
-•	VENV Folder:
-o	Includes virtual environment packages to allow web application to run
+
 
