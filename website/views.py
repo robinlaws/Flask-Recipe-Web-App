@@ -9,6 +9,8 @@ views = Blueprint('views', __name__)
 app = Flask(__name__)
 app.config['UPLOAD_PATH'] = 'website/static/images'
 
+# all website views for egg2z - blueprint"
+
 
 @views.route('/')
 def home():

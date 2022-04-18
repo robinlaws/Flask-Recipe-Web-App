@@ -6,6 +6,8 @@ import csv
 all_recipes = []
 fields = ['user email', 'name', 'image', 'ingredients', 'instructions', 'servings', 'reviews', 'difficulty']
 
+# User object for signing in and creating account. Stored in database.db
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -20,6 +22,8 @@ class User(db.Model, UserMixin):
 
     def verify_password(self, pwd):
         return check_password_hash(self.password, pwd)
+
+# Recipe object used for each recipe
 
 
 class CSVRecipes:
@@ -36,6 +40,8 @@ class CSVRecipes:
         write_to_file('recipes.csv')
 
 
+# function to write recipe objects to CSV file
+
 def write_to_file(filename):
     with open(filename, 'w', newline='') as csv_file:
         writer = csv.writer(csv_file)
@@ -44,6 +50,7 @@ def write_to_file(filename):
             writer.writerow(
                 [r.user, r.name, r.image, r.ingredients, r.instructions, r.servings, r.reviews, r.difficulty])
 
+# function to read recipes from file
 
 def read_from_file():
     try:
@@ -70,6 +77,8 @@ def read_from_file():
         with open('recipes.csv', 'w'):
             pass
 
+# function to get recipes linked to user for display
+
 
 def get_user_recipes(user):
     user_recipes = []
@@ -77,6 +86,8 @@ def get_user_recipes(user):
         if recipes.user == user:
             user_recipes.append(recipes)
     return user_recipes
+
+# 3 starter recipes for user when they sign up initially
 
 
 def starter_recipes(user):
